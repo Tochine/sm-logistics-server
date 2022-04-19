@@ -1,0 +1,27 @@
+const express = require("express");
+
+const router = express.Router();
+require("dotenv/config");
+const AuthController = require("../controllers/client");
+const { getIpAndUserAgent } = require("../middlewares");
+
+router.get("/healthcheck", async (req, res) => {
+  res.send({
+    status: "success",
+    message: "Healthcheck is wworking",
+  });
+});
+
+router.post("/login", getIpAndUserAgent, AuthController.login);
+router.post("/register", AuthController.register);
+router.post("/update-otp", AuthController.updateOtp);
+
+// password recovery
+router.post("/password/forgot", AuthController.forgotPassword);
+router.post("/password/reset/:token", AuthController.resetPassword);
+
+// router.post("/", AuthController.logout);
+
+// router.get("/verify/:token", AuthController.verifyEmail);
+
+module.exports = router;

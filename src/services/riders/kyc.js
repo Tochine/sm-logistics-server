@@ -11,9 +11,9 @@ module.exports = class Kyc {
     const passport = await models.KYC.findOne({ riderId: account._id });
     if(passport.status === "completed") throw new ServiceError("Passort already exist")
 
-    passport.key = file.key;
-    passport.path = file.location;
-    passport.status = "completed";
+    passport.passport.key = file.key;
+    passport.passport.path = file.location;
+    passport.passport.status = true;
     passport.save();
 
     return {
@@ -29,9 +29,9 @@ module.exports = class Kyc {
     const driverLicense = await models.KYC.findOne({ riderId: account._id });
     if(driverLicense.status === "completed") throw new ServiceError("driver license already exist")
 
-    driverLicense.key = file.key;
-    driverLicense.path = file.location;
-    driverLicense.status = "completed";
+    driverLicense.driversLicense.key = file.key;
+    driverLicense.driversLicense.path = file.location;
+    driverLicense.driversLicense.status = true;
     driverLicense.save();
 
     return {
@@ -47,9 +47,9 @@ module.exports = class Kyc {
     const nationalId = await models.KYC.findOne({ riderId: account._id });
     if(nationalId.status === "completed") throw new ServiceError("national ID already exist")
 
-    nationalId.key = file.key;
-    nationalId.path = file.location;
-    nationalId.status = "completed";
+    nationalId.nationalId.key = file.key;
+    nationalId.nationalId.path = file.location;
+    nationalId.nationalId.status = true;
     nationalId.save();
 
     return {

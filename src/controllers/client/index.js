@@ -1,35 +1,6 @@
 /* eslint-disable consistent-return */
 const ClientService = require("../../services/client");
 
-module.exports.register = async (req, res, next) => {
-  try {
-    const result = await ClientService.createAccount({ ...req.body });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports.login = async (req, res, next) => {
-  try {
-    const result = await ClientService.login({
-      ...req.body,
-      ip: req.ip,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports.getAccount = async (req, res, next) => {
   try {
     const result = await ClientService.getAccount({
@@ -103,21 +74,6 @@ module.exports.logout = async (req, res, next) => {
   }
 };
 
-module.exports.updateOtp = async (req, res, next) => {
-  try {
-    const result = await ClientService.updateOtp({
-      otp: req.body.otp,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports.createItem = async (req, res, next) => {
   try {
     const result = await ClientService.createItem({
@@ -182,20 +138,6 @@ module.exports.paymentRefNumberConfirmation = async (req, res, next) => {
   }
 };
 
-module.exports.forgotPassword = async (req, res, next) => {
-  try {
-    const result = await ClientService.forgotPassword({
-      email: req.body.email,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
 
 module.exports.resetPassword = async (req, res, next) => {
   try {

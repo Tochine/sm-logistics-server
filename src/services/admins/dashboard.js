@@ -1,4 +1,4 @@
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 const { ServiceError } = require("../../exceptions");
 const omit = require("lodash/omit");
 

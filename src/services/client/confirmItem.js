@@ -4,7 +4,7 @@ const { ServiceError } = require("../../exceptions");
 const {
   string, any, array, number,
 } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 const { generateCryptoToken } = require("../../providers/Utilities");
 const { geoCoder } = require("../../providers/geoCoder");
 

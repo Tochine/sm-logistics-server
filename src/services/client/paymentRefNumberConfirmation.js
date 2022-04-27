@@ -1,7 +1,7 @@
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError, ValidationError } = require("../../exceptions");
 const { any } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 
 module.exports = wrapServiceAction({
   params: {

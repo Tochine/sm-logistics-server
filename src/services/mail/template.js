@@ -76,8 +76,8 @@ module.exports.emailVerification = (url, name) => {
            <h1>Confirm Email verification</h1>
            <p>Hi ${name} </p>
            <p>Your account has been created successfully</p><br>
-           <p>Thanks for partnering with <h3> SM Logistics</h3><br></p>
-           <p>Thanks for showing interest in <h3> SM Logistics</h3><br>Please tap the button bellow to confirm your email</p>
+           <p>Thanks for showing interest to partner with <h3> SM Logistics</h3><br>Please tap the button bellow to confirm your email</p>
+           <a href=${url}>Confirm</a>
            <p> If you didnt create an account on <a href="https://sm-logistics.netlify.app">SM Logistics</a> you can delete this email</p>
            <p class="highlight">Having questions? Reach out to any of us using the methods below</p>
            <a href="mailto:" >sample@gmail.com</a>

@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("../exceptions");
-const models = require("../database/models/Index");
+const models = require("../database/models");
 const { decodeToken } = require("../providers/Utilities");
 
 module.exports.deSerialize = (tokenFlag = "AUTH") => {

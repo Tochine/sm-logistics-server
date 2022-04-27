@@ -1,7 +1,7 @@
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError } = require("../../exceptions");
 const { string } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 const { hashPassword } = require("../../providers/Utilities");
 const { passwordResetSuccess } = require("../mail/template");
 const { mailMan } = require("../mail");

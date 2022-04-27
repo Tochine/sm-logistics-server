@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const AccountService = require("../../services/riders");
 
 module.exports.createAccount = async (req, res, next) => {
@@ -32,7 +33,7 @@ module.exports.login = async (req, res, next) => {
 module.exports.verifyPassport = async (req, res, next) => {
   try {
     const result = await AccountService.Kyc.verifyPassport({
-      file,
+      file: req.file,
       riderId: req.session.account._id,
     });
 
@@ -48,7 +49,7 @@ module.exports.verifyPassport = async (req, res, next) => {
 module.exports.verifyDriverLicense = async (req, res, next) => {
   try {
     const result = await AccountService.Kyc.verifyDriverLicense({
-      file,
+      file: req.file,
       riderId: req.session.account._id,
     });
 
@@ -64,7 +65,7 @@ module.exports.verifyDriverLicense = async (req, res, next) => {
 module.exports.verifyNationalId = async (req, res, next) => {
   try {
     const result = await AccountService.Kyc.verifyNationalId({
-      file,
+      file: req.file,
       riderId: req.session.account._id,
     });
 

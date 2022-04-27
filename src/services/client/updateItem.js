@@ -2,7 +2,7 @@ const { ObjectId } = require("mongoose").Types;
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError } = require("../../exceptions");
 const { string, any } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 const { geoCoder } = require("../../providers/geoCoder");
 const { calcCrow } = require("../../providers/calc");
 

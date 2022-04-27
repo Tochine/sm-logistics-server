@@ -1,13 +1,15 @@
 const domains = require("disposable-email-domains");
 const crypto = require("crypto");
+const _ = require("lodash");
 const wildcards = require("disposable-email-domains/wildcard.json");
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError, ValidationError } = require("../../exceptions");
+const config = require("../../config");
 const { email, string } = require("../../validationTypes");
-const models = require("../../database/models/Index");
-const { hashPassword, generateRandomNumbers } = require("../../providers/Utilities");
+const models = require("../../database/models");
+const { hashPassword, generateRandomNumbers, encrypt } = require("../../providers/Utilities");
 const { mailMan } = require("../mail");
-const { otpMailTemplate } = require("../mail/template");
+const { emailVerification, otpMailTemplate } = require("../mail/template");
 
 module.exports = wrapServiceAction({
   params: {
@@ -22,6 +24,7 @@ module.exports = wrapServiceAction({
     },
     phoneNumber: { ...string },
     password: { ...string },
+    type: { ...string },
   },
 
   async handler(params) {
@@ -42,30 +45,56 @@ module.exports = wrapServiceAction({
     const accountExist = await models.Account.findOne({ email: params.email });
     if (accountExist) throw new ServiceError("account already exist");
 
-    const otp = generateRandomNumbers();
+
 
     const data = {
       email: params.email,
-      otp,
       firstName: params.firstName,
       lastName: params.lastName,
       phoneNumber: params.phoneNumber,
       password: await hashPassword(params.password),
-      emailVerificationToken: await crypto.randomBytes(64).toString("hex"),
+      userType: params.type,
     };
+
     const user = await models.Account.create(data);
-    const subject = "Account Verification OTP";
 
-    const account = await models.Account.findById(user._id);
 
-    await mailMan(
-      account.email,
-      subject,
-      otpMailTemplate(account.firstName, account.otp),
-    );
+    if (params.type === "client") {
+      let pin = generateRandomNumbers()
 
-    return {
-      message: "proceed to verifying your account",
-    };
+      const client = models.Client.create({
+        accountId: user._id,
+        otp: pin,
+      });
+
+      const subject = "Account Verification OTP";
+
+      await mailMan(
+        user.email,
+        subject,
+        otpMailTemplate(user.firstName, pin),
+      );
+
+      return {
+        message: "proceed to verifying your account",
+      };
+    }
+
+    if (params.type === "rider") {
+      const rider = await models.Rider.create({
+        accountId: user._id,
+        emailVerificationToken: crypto.randomBytes(64).toString("hex"),
+      })
+      const url = `${config.app.baseUrl}/riders/auth/verify/${rider.emailVerificationToken}`;
+      const subject = "Rider Registeration";
+  
+      mailMan(
+        user.email,
+        subject,
+        emailVerification(url, user.firstName),
+      );
+    }
+
+    return _.omit(user.toObject(), ["password", "__v", "createdAt", "updatedAt"]);
   },
 });

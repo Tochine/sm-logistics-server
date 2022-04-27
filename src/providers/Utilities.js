@@ -86,3 +86,25 @@ exports.generateJWTToken = async (payload, secret = config.app.secret) => {
     });
   });
 };
+
+const secretKey = config.app.secret;
+
+exports.encrypt = (text) => {
+  const algorithm = 'aes-256-ctr';
+  const iv = crypto.randomBytes(16);
+
+  const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
+  const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+  return {
+      iv: iv.toString('hex'),
+      content: encrypted.toString('hex')
+  };
+}
+
+exports.decrypt = (hash) => {
+  const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(hash.iv, 'hex'));
+
+  const decrpyted = Buffer.concat([decipher.update(Buffer.from(hash.content, 'hex')), decipher.final()]);
+
+  return decrpyted.toString();
+}

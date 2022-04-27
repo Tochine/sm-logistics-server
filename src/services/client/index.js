@@ -9,6 +9,5 @@ module.exports = {
   updateItem: require("./updateItem"),
   confirmItem: require("./confirmItem"),
   paymentRefNumberConfirmation: require("./paymentRefNumberConfirmation"),
-  resetPassword: require("./resetPassword"),
   getItemHistory: require("./getItemHistory"),
 };

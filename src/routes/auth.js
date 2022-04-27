@@ -20,11 +20,11 @@ router.get("/healthcheck", async (req, res) => {
 
 router.post("/login", getIpAndUserAgent, AuthController.login);
 router.post("/register", AuthController.register);
-router.post("/update-otp", AuthController.updateOtp);
+router.post("/otp/verify", AuthController.updateOtp);
 
 // password recovery
 router.post("/password/forgot", AuthController.forgotPassword);
-// router.post("/password/reset/:token", AuthController.resetPassword);
+router.post("/password/reset/:token", AuthController.resetPassword);
 
 // router.post("/", AuthController.logout);
 

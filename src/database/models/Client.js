@@ -8,7 +8,10 @@ const schema = new mongoose.Schema({
     ref: AccountModel,
   },
 
-  otp: { type: String },
+  otp: { 
+    type: String,
+    unique: true
+  },
 
   loginCount: {
     type: Number,

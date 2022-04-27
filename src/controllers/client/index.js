@@ -138,23 +138,6 @@ module.exports.paymentRefNumberConfirmation = async (req, res, next) => {
   }
 };
 
-
-module.exports.resetPassword = async (req, res, next) => {
-  try {
-    const result = await ClientService.resetPassword({
-      newPassword: req.body.newPassword,
-      token: req.params.token,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports.getAccountItemHistory = async (req, res, next) => {
   try {
     const result = await ClientService.getAccountItemHistory({

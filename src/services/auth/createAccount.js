@@ -62,7 +62,7 @@ module.exports = wrapServiceAction({
     if (params.type === "client") {
       let pin = generateRandomNumbers()
 
-      const client = models.Client.create({
+      await models.Client.create({
         accountId: user._id,
         otp: pin,
       });

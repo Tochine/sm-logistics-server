@@ -74,21 +74,6 @@ module.exports.logout = async (req, res, next) => {
   }
 };
 
-module.exports.createItem = async (req, res, next) => {
-  try {
-    const result = await ClientService.createItem({
-      account_id: req.session.account._id,
-      ...req.body,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
 
 module.exports.updateItem = async (req, res, next) => {
   try {

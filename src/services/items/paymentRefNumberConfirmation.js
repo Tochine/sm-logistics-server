@@ -21,9 +21,10 @@ module.exports = wrapServiceAction({
     const tranxExist = await models.Tranx.findOne({ reference: params.referenceNumber });
     if (tranxExist) throw new ServiceError("reference number already exist");
 
-    const tranx = await models.Tranx.findOneAndUpdate(
+    await models.Tranx.findOneAndUpdate(
       { itemId: params.dropOffId },
       { reference: params.referenceNumber },
+      { total: item.price },
       { paidAt: new Date() },
     ).exec();
 

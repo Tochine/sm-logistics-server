@@ -17,9 +17,10 @@ router.post("/", ItemsController.createItem);
 //   .route("/")
 //   .post(ItemsController.createDropOff);
 
-// router.put("/update", ItemsController.updateItem);
-// router.put("/comfirm", ItemsController.confirmItem);
+router.put("/update", ItemsController.updateItem);
+router.put("/confirm", ItemsController.confirmItem);
+router.post("/payment-reference", ItemsController.paymentRefNumberConfirmation);
 // router.get("/item", ItemsController.getItem);
-// router.post("/confirm-reference/payment", ItemsController.paymentRefNumberConfirmation);
+
 
 module.exports = router;

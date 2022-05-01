@@ -74,55 +74,6 @@ module.exports.logout = async (req, res, next) => {
   }
 };
 
-
-module.exports.updateItem = async (req, res, next) => {
-  try {
-    const result = await ClientService.updateItem({
-      account_id: req.session.account._id,
-      ...req.body,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports.confirmItem = async (req, res, next) => {
-  try {
-    const result = await ClientService.confirmItem({
-      account_id: req.session.account._id,
-      ...req.body,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports.paymentRefNumberConfirmation = async (req, res, next) => {
-  try {
-    const result = await ClientService.paymentRefNumberConfirmation({
-      account_id: req.session.account._id,
-      ...req.body,
-    });
-
-    return res.send({
-      status: "success",
-      result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports.getAccountItemHistory = async (req, res, next) => {
   try {
     const result = await ClientService.getAccountItemHistory({

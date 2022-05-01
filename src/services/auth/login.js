@@ -67,14 +67,16 @@ module.exports = wrapServiceAction({
     //   )
     // }
 
+    const session = await models.Session.deleteMany({ accountId: user._id });
+
     const data = Object.assign(user, client)
 
     const { token } = await createSession(account._id, params.ip);
 
+
     return {
-      // account: _.omit(data.toObject(), ["password", "__v", "createdAt", "updatedAt"]),
-      account: data,
-      token,
+      account: _.omit(data.toObject(), ["password", "__v", "createdAt", "updatedAt"]),
+      token
     };
   },
 });

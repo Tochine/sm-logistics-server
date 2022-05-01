@@ -7,27 +7,32 @@ module.exports = wrapServiceAction({
   params: {
     $$strict: "remove",
     account_id: { ...any },
-    refNumber: { ...any },
-    itemID: { ...any },
+    referenceNumber: { ...any },
+    dropOffId: { ...any },
   },
 
   async handler(params) {
     const account = await models.Account.findById(params.account_id);
     if (!account) throw new ServiceError("account not found");
 
-    const item = await models.Items.findById(params.itemID);
-    if (!item) throw new ServiceError("item not found");
+    const item = await models.Items.findById(params.dropOffId);
+    if (!item) throw new ServiceError("item does not exist");
 
-    const tranxExist = await models.Tranx.findOne({ reference: refNo });
+    const tranxExist = await models.Tranx.findOne({ reference: params.referenceNumber });
     if (tranxExist) throw new ServiceError("reference number already exist");
 
-    await models.Tranx.findOneAndUpdate(
-      { itemId: itemID },
-      { reference: refNo },
-      { total: item.price },
+    const tranx = await models.Tranx.findOneAndUpdate(
+      { itemId: params.dropOffId },
+      { reference: params.referenceNumber },
       { paidAt: new Date() },
-      { new: true },
-    );
+    ).exec();
+
+
+    // tranxExist.itemId = params.dropOffId;
+    // tranxExist.reference = params.referenceNumber;
+    // tranxExist.total = item.price;
+    // tranxExist.paidAt = new Date();
+    // await tranxExist.save();
 
     return {
       message: "Transaction awaiting confirmation",

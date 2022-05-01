@@ -5,8 +5,5 @@ module.exports = {
   updateAccount: require("./updateAccount"),
   updateAccountPassword: require("./updateAccountPassword"),
   logout: require("./logout"),
-  updateItem: require("./updateItem"),
-  confirmItem: require("./confirmItem"),
-  paymentRefNumberConfirmation: require("./paymentRefNumberConfirmation"),
   getItemHistory: require("./getItemHistory"),
 };

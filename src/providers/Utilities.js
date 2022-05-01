@@ -12,7 +12,7 @@ exports.hashPassword = async (password) => {
   return bcrypt.hash(password, 10);
 };
 
-function generateRandomCode(length) {
+function generateRandomCode (length) {
   return crypto.randomBytes(length * 3)
     .toString("base64")
     .split("+").join("")

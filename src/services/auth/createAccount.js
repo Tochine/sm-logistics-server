@@ -85,7 +85,7 @@ module.exports = wrapServiceAction({
         accountId: user._id,
         emailVerificationToken: crypto.randomBytes(64).toString("hex"),
       })
-      const url = `${config.app.baseUrl}/riders/auth/verify/${rider.emailVerificationToken}`;
+      const url = `${config.app.frontendUrl}/riders/auth/verify/${rider.emailVerificationToken}`;
       const subject = "Rider Registeration";
   
       mailMan(

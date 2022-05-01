@@ -1,3 +1,6 @@
 module.exports = {
-  createItem: require("./createDropOff"),
+  createDropOff: require("./createDropOff"),
+  updateDropOff: require("./updateDropOff"),
+  confirmDropOff: require("./confirmDropOff"),
+  paymentRef: require("./paymentRefNumberConfirmation"),
 }

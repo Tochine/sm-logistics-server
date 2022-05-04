@@ -21,19 +21,13 @@ module.exports = wrapServiceAction({
     const tranxExist = await models.Tranx.findOne({ reference: params.referenceNumber });
     if (tranxExist) throw new ServiceError("reference number already exist");
 
-    await models.Tranx.findOneAndUpdate(
-      { itemId: params.dropOffId },
-      { reference: params.referenceNumber },
-      { total: item.price },
-      { paidAt: new Date() },
-    ).exec();
+    // console.log(tranxExist);
 
-
-    // tranxExist.itemId = params.dropOffId;
-    // tranxExist.reference = params.referenceNumber;
-    // tranxExist.total = item.price;
-    // tranxExist.paidAt = new Date();
-    // await tranxExist.save();
+    const data = await models.Tranx.findOne({ itemId: item._id });
+    data.reference = params.referenceNumber;
+    data.total = item.length;
+    data.paidAt = new Date();
+    await data.save();
 
     return {
       message: "Transaction awaiting confirmation",

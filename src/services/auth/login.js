@@ -67,7 +67,7 @@ module.exports = wrapServiceAction({
     //   )
     // }
 
-    const session = await models.Session.deleteMany({ accountId: user._id });
+    // const session = await models.Session.deleteMany({ accountId: user._id });
 
     const data = Object.assign(user, client)
 

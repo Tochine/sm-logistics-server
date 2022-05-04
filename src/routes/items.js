@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const ItemsController = require("../controllers/client");
+const ItemsController = require("../controllers/items");
 // const {
 //   createItem,
 //   updateItem,
@@ -9,7 +9,7 @@ const ItemsController = require("../controllers/client");
 // }= require("../controllers/client");
 const { deSerialize } = require("../middlewares/auth");
 
-router.use(deSerialize());
+router.use(deSerialize);
 
 router.post("/", ItemsController.createItem);
 
@@ -18,8 +18,9 @@ router.post("/", ItemsController.createItem);
 //   .post(ItemsController.createDropOff);
 
 router.put("/update", ItemsController.updateItem);
-router.put("/comfirm", ItemsController.confirmItem);
+router.put("/confirm", ItemsController.confirmItem);
+router.post("/payment-reference", ItemsController.paymentRefNumberConfirmation);
 // router.get("/item", ItemsController.getItem);
-router.post("/confirm-reference/payment", ItemsController.paymentRefNumberConfirmation);
+
 
 module.exports = router;

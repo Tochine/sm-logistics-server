@@ -49,15 +49,6 @@ const accountSchema = new mongoose.Schema({
     type: Date,
   },
 
-  ip: {
-    type: String,
-  },
-
-  loginCount: {
-    type: Number,
-    default: 0,
-  },
-
   lastLoggedIn: {
     type: Date,
     default: new Date(),
@@ -68,18 +59,12 @@ const accountSchema = new mongoose.Schema({
     default: false,
   },
 
-  profileImage: {
-    name: { type: String },
-    path: { type: String },
+  userType: {
+    type: String,
+    enum: ["rider", "client"],
+    default: "client",
   },
 
-  // userType: {
-  //   type: String,
-  //   enum: ["rider", "client"],
-  //   default: "client",
-  // },
-
-  emailVerificationToken: { type: String },
 });
 
 accountSchema.plugin(timestamp);

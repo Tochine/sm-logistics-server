@@ -35,13 +35,12 @@ app.use(logVisited);
 
 /* ROUTES */
 // app.use("/auth", require("./routes/auth"));
-app.use(require("./routes"));
-app.use("/riders", require("./routes/riders"));
-app.use("/admin", require("./routes/admins"));
+app.use("/api/v1", require("./routes"));
+// app.use("/riders", require("./routes/riders"));
+// app.use("/admin", require("./routes/admins"));
 
 /* EXCEPTION HANDLERS */
 app.use(errorHandler);
-
 app.use(pageNotFound);
 
 module.exports = app;

@@ -3,7 +3,7 @@ const _ = require("lodash");
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError, ValidationError } = require("../../exceptions");
 const { email, string } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 const { comparePassword } = require("../../providers/Utilities");
 const { createSession } = require("../../providers/createSession");
 
@@ -31,10 +31,9 @@ module.exports = wrapServiceAction({
       throw new ValidationError([{ message: "email is not valid" }]);
     }
 
-    const { email, ip } = params;
 
     const user = await models.Account.findOne(
-      { email },
+      { email: params.email },
       {},
       { select: "+password" },
     );
@@ -44,26 +43,40 @@ module.exports = wrapServiceAction({
 
     if (!passwordMatch) throw new ServiceError("password incorrect");
 
-    if (user.loginCount < 4) {
-      user.loginCount++;
-    }
-
     const account = await models.Account.findOneAndUpdate(
       { _id: user._id },
       {
         lastLoggedIn: new Date(),
-        loginCount: user.loginCount,
-        ip,
       },
       { new: true },
     );
 
-    // const account = await models.Account.findById(user._id);
-    const { token } = await createSession(account._id, ip);
+    let count;
+    let client;
+
+    // if (user.userType === "client") {
+    //   const x = await models.Client.findOne({ accountId: user._id });
+    //   if (x.loginCount < 4 && x.loginCount !== null ) {
+    //     count = x.loginCount += 1;
+    //   }
+
+    //   client = await models.Client.findOneAndUpdate(
+    //     { _id: x._id },
+    //     { loginCount: count },
+    //     { new: true }
+    //   )
+    // }
+
+    // const session = await models.Session.deleteMany({ accountId: user._id });
+
+    const data = Object.assign(user, client)
+
+    const { token } = await createSession(account._id, params.ip);
+
 
     return {
-      account: _.omit(account.toObject(), ["password", "__v", "createdAt", "updatedAt"]),
-      token,
+      account: _.omit(data.toObject(), ["password", "__v", "createdAt", "updatedAt"]),
+      token
     };
   },
 });

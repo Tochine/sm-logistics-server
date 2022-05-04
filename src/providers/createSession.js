@@ -1,5 +1,5 @@
 const moment = require("moment");
-const models = require("../database/models/Index");
+const models = require("../database/models");
 const { generateJWTToken } = require("./Utilities");
 
 module.exports.createSession = async (accountId, ip) => {

@@ -4,8 +4,8 @@ const { ServiceError } = require("../../exceptions");
 const {
   string, any, array, number,
 } = require("../../validationTypes");
-const models = require("../../database/models/Index");
-const { generateCryptoToken } = require("../../providers/Utilities");
+const models = require("../../database/models");
+const { generateString } = require("../../providers/Utilities");
 const { geoCoder } = require("../../providers/geoCoder");
 
 module.exports = wrapServiceAction({
@@ -86,12 +86,10 @@ module.exports = wrapServiceAction({
     dropOff.status = "saved";
     await dropOff.save();
 
-    let tranx;
-
     const tranxExist = await models.Tranx.findOne({ itemId: dropOff._id });
     if (tranxExist) {
-      tranx = await models.fidOneAndUpdate(
-        { itemId: params.itemID },
+      const tranx = await models.Tranx.findOneAndUpdate(
+        { itemId: dropOff._id },
         { total: dropOff.price },
         { status: "saved" },
         { new: true },
@@ -103,10 +101,10 @@ module.exports = wrapServiceAction({
       };
     }
 
-    const code = generateCryptoToken(8);
+    const code = generateString(7);
     const orderNo = `D${code.toUpperCase()}`;
 
-    tranx = await models.Tranx.create({
+    const tranx = await models.Tranx.create({
       orderNo,
       itemId: dropOff._id,
       clientId: dropOff.accountId,

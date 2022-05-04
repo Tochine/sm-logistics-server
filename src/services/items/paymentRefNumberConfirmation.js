@@ -1,33 +1,33 @@
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError, ValidationError } = require("../../exceptions");
 const { any } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 
 module.exports = wrapServiceAction({
   params: {
     $$strict: "remove",
     account_id: { ...any },
-    refNumber: { ...any },
-    itemID: { ...any },
+    referenceNumber: { ...any },
+    dropOffId: { ...any },
   },
 
   async handler(params) {
     const account = await models.Account.findById(params.account_id);
     if (!account) throw new ServiceError("account not found");
 
-    const item = await models.Items.findById(params.itemID);
-    if (!item) throw new ServiceError("item not found");
+    const item = await models.Items.findById(params.dropOffId);
+    if (!item) throw new ServiceError("item does not exist");
 
-    const tranxExist = await models.Tranx.findOne({ reference: refNo });
+    const tranxExist = await models.Tranx.findOne({ reference: params.referenceNumber });
     if (tranxExist) throw new ServiceError("reference number already exist");
 
-    await models.Tranx.findOneAndUpdate(
-      { itemId: itemID },
-      { reference: refNo },
-      { total: item.price },
-      { paidAt: new Date() },
-      { new: true },
-    );
+    // console.log(tranxExist);
+
+    const data = await models.Tranx.findOne({ itemId: item._id });
+    data.reference = params.referenceNumber;
+    data.total = item.length;
+    data.paidAt = new Date();
+    await data.save();
 
     return {
       message: "Transaction awaiting confirmation",

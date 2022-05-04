@@ -1,4 +1,4 @@
-const models = require("../database/models/Index");
+const models = require("../database/models");
 
 class InfoService {
   static getCategories = async () => {

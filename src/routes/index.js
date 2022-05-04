@@ -10,7 +10,7 @@ router.use("/items", require("./items"));
 
 router.use("/info", require("./info"));
 
-router.use("/payments", require("./payment"));
+// router.use("/payments", require("./payment"));
 
 // router.use('/items', require('./items'));
 

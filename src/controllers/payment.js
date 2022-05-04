@@ -6,7 +6,7 @@ const {
   GetPaymentCardValidator,
   PaymentCardValidator,
 } = require("../validators/payment");
-const models = require("../database/models/Index");
+const models = require("../database/models");
 const { ServiceError } = require("../exceptions");
 // const uuid = require("uuid").v4;
 const ObjectId = require("mongoose").Types.ObjectId;

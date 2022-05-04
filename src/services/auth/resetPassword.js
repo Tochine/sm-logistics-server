@@ -27,7 +27,7 @@ module.exports = wrapServiceAction({
       },
     );
 
-    const subject = "Your Password Has Been Changed";
+    const subject = "Password Reset Successful";
 
     await mailMan(
       account.email,
@@ -36,7 +36,7 @@ module.exports = wrapServiceAction({
     );
 
     return {
-      message: "password reset successfully",
+      message: "password reset successful",
     };
   },
 });

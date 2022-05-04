@@ -2,7 +2,7 @@
 module.exports = {
   createAccount: require("./createAccount"),
   login: require("./login"),
-  account: require("./account"),
-  auth: require("./auth"),
-  Kyc: require("./kyc"),
+  forgotPassword: require("./forgotPassword"),
+  resetPassword: require("./resetPassword"),
+  updateOtp: require("./updateOtp"),
 };

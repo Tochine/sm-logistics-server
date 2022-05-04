@@ -4,7 +4,7 @@ const { ServiceError, ValidationError } = require("../../exceptions");
 const {
   string, number, array, any, date,
 } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 
 module.exports = wrapServiceAction({
   params: {

@@ -1,5 +1,5 @@
 const { AuthenticationError, ServiceError } = require("../../exceptions");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 
 module.exports = {
   deSerialize: async (tokenFlag = "AUTH") => {

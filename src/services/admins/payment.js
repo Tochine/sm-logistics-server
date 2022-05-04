@@ -1,4 +1,4 @@
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 const omit = require("lodash/omit");
 const { ServiceError } = require("../../exceptions");
 const { calcCrow } = require("../../providers/calc");

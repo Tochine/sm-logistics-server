@@ -7,12 +7,12 @@ const router = express.Router();
 // router.use(deSerialize);
 
 // router.put("/", PaymentController.createPayment);
-router
-  .route("/")
-  .post(PaymentController.verifyPaymentCard)
-  .get(PaymentController.getPaymentCards);
+// router
+//   .route("/")
+//   .post(PaymentController.verifyPaymentCard)
+//   .get(PaymentController.getPaymentCards);
 // router.post("/verify/card", PaymentController.verifyPaymentCard);
-router.post("/create", PaymentController.initializePayment);
-router.get("/card/callback", PaymentController.paymentCallback);
+// router.post("/create", PaymentController.initializePayment);
+// router.get("/card/callback", PaymentController.paymentCallback);
 
 module.exports = router;

@@ -16,6 +16,7 @@ const kycSchema = new mongoose.Schema({
       type: Boolean,
       defaultValue: false,
     },
+    note: { type: String },
   },
 
   driversLicense: {
@@ -29,6 +30,7 @@ const kycSchema = new mongoose.Schema({
       type: Boolean,
       defaultValue: false,
     },
+    note: { type: String },
   },
 
   nationalId: {
@@ -42,6 +44,7 @@ const kycSchema = new mongoose.Schema({
       type: Boolean,
       defaultValue: false,
     },
+    note: { type: String },
   },
 
   status: { type: String },

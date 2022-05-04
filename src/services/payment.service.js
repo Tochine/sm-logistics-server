@@ -1,5 +1,5 @@
 const axios = require("axios");
-const models = require("../database/models/Index");
+const models = require("../database/models");
 const ObjectId = require("mongoose").Types.ObjectId;
 const { ServiceError, NotFoundError } = require("../exceptions");
 

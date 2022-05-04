@@ -1,7 +1,7 @@
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError, ValidationError } = require("../../exceptions");
 const { any, string } = require("../../validationTypes");
-const models = require("../../database/models/Index");
+const models = require("../../database/models");
 const { comparePassword, hashPassword } = require("../../providers/Utilities");
 
 module.exports = wrapServiceAction({

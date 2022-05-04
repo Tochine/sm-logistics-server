@@ -37,16 +37,16 @@ router.post("/login", AdminController.login);
 
 router.post("/register", AdminController.register);
 
-router.get("/dashboard", deSerialize, AdminController.getDashboard);
-router.get("/items", deSerialize, AdminController.getItems);
-router.get("/item", deSerialize, AdminController.getsingleItem);
-router.get("/payment/type", deSerialize, AdminController.getPaymentTypes);
-router.get("/clients", deSerialize, AdminController.getClients);
-router.get("/client", deSerialize, AdminController.getSingleClient);
-router.post("/profile-image/upload", deSerialize, upload.single("image"), AdminController.storeProfileImage);
+// router.get("/dashboard", deSerialize, AdminController.getDashboard);
+// router.get("/items", deSerialize, AdminController.getItems);
+// router.get("/item", deSerialize, AdminController.getsingleItem);
+// router.get("/payment/type", deSerialize, AdminController.getPaymentTypes);
+// router.get("/clients", deSerialize, AdminController.getClients);
+// router.get("/client", deSerialize, AdminController.getSingleClient);
+// router.post("/profile-image/upload", deSerialize, upload.single("image"), AdminController.storeProfileImage);
 
-router.get("/riders", deSerialize, AdminController.getRiders);
-router.get("/rider", deSerialize, AdminController.getSingleRider);
-router.post("/payment/confirm", deSerialize, AdminController.confirmPayment);
+// router.get("/riders", deSerialize, AdminController.getRiders);
+// router.get("/rider", deSerialize, AdminController.getSingleRider);
+// router.post("/payment/confirm", deSerialize, AdminController.confirmPayment);
 
 module.exports = router;

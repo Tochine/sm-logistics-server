@@ -40,9 +40,7 @@ module.exports = wrapServiceAction({
       throw new ValidationError([{ message: "email is not valid" }]);
     }
 
-    const { email } = params;
-
-    const accountExist = await models.RidersAccount.findOne({ email });
+    const accountExist = await models.RidersAccount.findOne({ email: params.email });
     if (accountExist) throw new ServiceError("account already exist");
 
     const accountData = {

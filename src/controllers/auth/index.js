@@ -3,7 +3,10 @@ const AuthService = require("../../services/auth");
 
 module.exports.register = async (req, res, next) => {
   try {
-    const result = await AuthService.createAccount({ ...req.body });
+    const result = await AuthService.createAccount({ 
+      ...req.body,
+      ip: req.ip,
+     });
 
     return res.send({
       status: "success",

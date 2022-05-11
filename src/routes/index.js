@@ -8,6 +8,8 @@ router.use("/account", require("./account"));
 
 router.use("/items", require("./items"));
 
+router.use("/kyc", require("./kyc"));
+
 router.use("/info", require("./info"));
 
 // router.use("/payments", require("./payment"));

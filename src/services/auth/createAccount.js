@@ -10,6 +10,7 @@ const models = require("../../database/models");
 const { hashPassword, generateRandomNumbers, encrypt } = require("../../providers/Utilities");
 const { mailMan } = require("../mail");
 const { emailVerification, otpMailTemplate } = require("../mail/template");
+const { createSession } = require("../../providers/createSession");
 
 module.exports = wrapServiceAction({
   params: {
@@ -25,6 +26,7 @@ module.exports = wrapServiceAction({
     phoneNumber: { ...string },
     password: { ...string },
     type: { ...string },
+    ip: { ...string, optional: true },
   },
 
   async handler(params) {
@@ -80,6 +82,8 @@ module.exports = wrapServiceAction({
       };
     }
 
+    let token;
+
     if (params.type === "rider") {
       const rider = await models.Rider.create({
         accountId: user._id,
@@ -93,8 +97,14 @@ module.exports = wrapServiceAction({
         subject,
         emailVerification(url, user.firstName),
       );
+
+      { token } await createSession(user._id, params.ip);
     }
 
-    return _.omit(user.toObject(), ["password", "__v", "createdAt", "updatedAt"]);
+    return {
+      message: "upload required documents",
+      data: _.pick(user.toObject(), ["_id", "createdAt", "updatedAt"]),
+      token
+    };
   },
 });

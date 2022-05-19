@@ -31,11 +31,10 @@ router.get("/list", async (req, res) => {
   res.send(x);
 });
 
-const { deSerialize } = require("../../middlewares/admin");
+const { adminAuth } = require("../../middlewares/admin");
 
 router.post("/login", AdminController.login);
-
-router.post("/register", AdminController.register);
+router.post("/register", adminAuth, AdminController.register);
 
 // router.get("/dashboard", deSerialize, AdminController.getDashboard);
 // router.get("/items", deSerialize, AdminController.getItems);

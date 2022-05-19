@@ -9,7 +9,7 @@ module.exports = {
   Payment: require("./Payment"),
   Tranx: require("./Transaction"),
   Rider: require("./Rider"),
-  AdminsAccount: require("./Admins/AdminAccount"),
+  Admin: require("./Admin"),
   Session: require("./Session"),
-  KYC: require("./Riders/Kyc"),
+  KYC: require("./Kyc"),
 };

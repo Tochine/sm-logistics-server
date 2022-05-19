@@ -18,7 +18,10 @@ const riderAccountSchema = new mongoose.Schema({
     long: { type: Number },
   },
 
-  profileImage: { type: String },
+  profileImage: {
+    name: { type: String },
+    path: { type: String },
+  },
 
   emailVerificationToken: { type: String },
 

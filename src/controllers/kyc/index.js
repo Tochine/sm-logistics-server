@@ -19,7 +19,7 @@ module.exports.requestDriverLicense = async (req, res, next) => {
 
 module.exports.requestPassport = async (req, res, next) => {
   try {
-    const result = await KycService.requestPassport(req, res, next);({
+    const result = await KycService.requestPassport({
         file: req.file,
         accountId: req.session.account._id,
       });
@@ -35,7 +35,7 @@ module.exports.requestPassport = async (req, res, next) => {
 
 module.exports.requestNationalId = async (req, res, next) => {
   try {
-    const result = await KycService.requestNationalID(req, res, next);({
+    const result = await KycService.requestNationalID({
         file: req.file,
         accountId: req.session.account._id,
       });
@@ -48,3 +48,18 @@ module.exports.requestNationalId = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.requestExtra = async (req, res, next) => {
+  try {
+    const result = await KycService.requestExtra({
+      accountId: req.session.account._id,
+      ...req.body
+    });
+    return res.send({
+      status: "success",
+      result
+    });
+  } catch (error) {
+    next(error);
+  }
+}

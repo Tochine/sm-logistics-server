@@ -71,7 +71,9 @@ module.exports = wrapServiceAction({
 
     const data = Object.assign(user, client)
 
-    const { token } = await createSession(account._id, params.ip);
+    const ip = null;
+
+    const { token } = await createSession(account._id, ip);
 
 
     return {

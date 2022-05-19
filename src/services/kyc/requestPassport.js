@@ -14,7 +14,7 @@ module.exports = wrapServiceAction({
     if(!account) throw new ServiceError("account not fount")
 
     const { passport } = await models.KYC.findOne({ riderId: account._id });
-    if(passport.status === "completed") throw new ServiceError("driver license already exist")
+    if(passport.status === "completed") throw new ServiceError("passport license already exist")
 
     passport.key = file.key;
     passport.path = file.location;

@@ -1,9 +1,8 @@
 const { AuthenticationError, ServiceError } = require("../../exceptions");
 const models = require("../../database/models");
+const { decodeToken } = require("../../providers/Utilities");
 
-module.exports = {
-  deSerialize: async (tokenFlag = "AUTH") => {
-    return async (req, res, next) => {
+module.exports.adminAuth = async (req, res, next) => {
       try {
         req.session = req.session || {};
         const authorization = req.header("authorization") || "";
@@ -12,25 +11,22 @@ module.exports = {
           return next(new AuthenticationError("you need to be authenticated to access this endpoint"));
         }
 
-        const { id, flag } = await decodeToken(token);
+        const { id } = await decodeToken(token);
 
         if (!id) {
           return next(new AuthenticationError("unable to verify token"));
         }
 
-        if (flag !== tokenFlag) {
-          return next(new AuthenticationError(`token is not valid for ${tokenFlag}`));
-        }
-
-        const [account, session] = await Promise.all([
+        const [session, account] = await Promise.all([
           models.Session.findOne({ token }),
-          models.AdminsAccount.findById(session.accountId),
+          models.Admin.findById(id),
         ]);
 
-        if (!account || (tokenFlag === "AUTH" && !session)) {
+        if (!account && !session) {
           return next(new AuthenticationError("token is invalid"));
         }
         req.session.account = account.toJSON();
+
         next();
       } catch (e) {
         switch (e.name) {
@@ -44,6 +40,4 @@ module.exports = {
             return next(e);
         }
       }
-    };
-  },
-};
+  };

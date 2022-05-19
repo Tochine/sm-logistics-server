@@ -1,31 +1,20 @@
 const mongoose = require("mongoose");
-const timestamp = require("../plugins/timestamp");
+const timestamp = require("./plugins/timestamp");
 
 const adminAccountSchema = new mongoose.Schema({
-  firstName: {
+  fullName: {
     type: String,
     required: true,
   },
 
-  middleName: {
-    type: String,
-  },
-
-  lastName: {
-    type: String,
-    required: true,
-  },
   phoneNumber: {
     type: String,
     required: true,
   },
 
   profileImage: {
-    type: String,
-  },
-
-  profileImagePath: {
-    type: String,
+    name: { type: String },
+    path: { type: String },
   },
 
   email: {
@@ -58,17 +47,19 @@ const adminAccountSchema = new mongoose.Schema({
     default: new Date(),
   },
 
-  sessionID: {
-    type: String,
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    ref: "Admin",
   },
 
-  profileImage: { type: String },
+  role: {
+    type: mongoose.Types.ObjectId
+  }
 
-  emailVerificationToken: { type: String },
 });
 
 adminAccountSchema.plugin(timestamp);
 
-const adminAccountModel = mongoose.model("AdminAccount", adminAccountSchema);
+const adminModel = mongoose.model("Admin", adminAccountSchema);
 
-module.exports = adminAccountModel;
+module.exports = adminModel;

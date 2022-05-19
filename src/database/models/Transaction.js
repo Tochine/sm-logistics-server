@@ -49,6 +49,12 @@ const tranxSchema = mongoose.Schema({
     default: 0,
   },
 
+  isApprovedByAdmin: {
+    type: Boolean,
+  },
+
+  rejectionReason: { type: String },
+
   ip: { type: String },
 }, { timestamps: true });
 

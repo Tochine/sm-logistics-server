@@ -29,3 +29,16 @@ module.exports.login = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getItemsAwaitingApproval = async (req, res, next) => {
+  try {
+    const result = await AdminService.getItemsAwaitingApproval()
+
+    return res.send({
+      status: "success",
+      result
+    });
+  } catch (error) {
+    next(error);
+  }
+}

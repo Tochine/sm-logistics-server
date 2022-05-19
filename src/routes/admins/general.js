@@ -35,6 +35,7 @@ const { adminAuth } = require("../../middlewares/admin");
 
 router.post("/login", AdminController.login);
 router.post("/register", adminAuth, AdminController.register);
+router.get("/items/awaiting-decision", adminAuth, AdminController.getItemsAwaitingApproval);
 
 // router.get("/dashboard", deSerialize, AdminController.getDashboard);
 // router.get("/items", deSerialize, AdminController.getItems);

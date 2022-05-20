@@ -2,7 +2,7 @@ const { ObjectId } = require("mongoose").Types;
 const wrapServiceAction = require("../_core/wrapServiceAction");
 const { ServiceError, ValidationError } = require("../../exceptions");
 const {
-  string, number, array, any, date,
+  string, number, array, any
 } = require("../../validationTypes");
 const models = require("../../database/models");
 

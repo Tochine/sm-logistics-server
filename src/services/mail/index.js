@@ -4,6 +4,7 @@ const config = require("../../config");
 exports.mailMan = (to, subject, template) => {
   const sendgridKey = config.mail.sgKey;
   const sgKeys = sgMail.setApiKey(sendgridKey);
+  
   const msg = {
     to,
     from: config.mail.from,

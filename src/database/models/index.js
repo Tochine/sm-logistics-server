@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 module.exports = {
   Account: require("./Account"),
-  Client: require("./Client"),
   Items: require("./Items"),
   Transaction: require("./Transaction"),
   ItemCategory: require("./ItemCategory"),

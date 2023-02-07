@@ -9,7 +9,7 @@ const { email, string } = require("../../validationTypes");
 const models = require("../../database/models");
 const { hashPassword, generateRandomNumbers, encrypt } = require("../../providers/Utilities");
 const { mailMan } = require("../mail");
-const { emailVerification, otpMailTemplate } = require("../mail/template");
+const { otpMailTemplate } = require("../mail/template");
 const { createSession } = require("../../providers/createSession");
 
 module.exports = wrapServiceAction({
@@ -47,7 +47,7 @@ module.exports = wrapServiceAction({
     const accountExist = await models.Account.findOne({ email: params.email });
     if (accountExist) throw new ServiceError("account already exist");
 
-
+    const pin = generateRandomNumbers()
 
     const data = {
       email: params.email,
@@ -56,55 +56,24 @@ module.exports = wrapServiceAction({
       phoneNumber: params.phoneNumber,
       password: await hashPassword(params.password),
       userType: params.type,
+      otp: pin,
     };
 
     const user = await models.Account.create(data);
 
+    const subject = "Account Verification OTP";
 
-    if (params.type === "client") {
-      let pin = generateRandomNumbers()
+    
 
-      await models.Client.create({
-        accountId: user._id,
-        otp: pin,
-      });
+    mailMan(
+      user.email,
+      subject,
+      otpMailTemplate(user.firstName, pin)
+    );
 
-      const subject = "Account Verification OTP";
+    const token = await createSession(user._id, params.ip);
 
-      await mailMan(
-        user.email,
-        subject,
-        otpMailTemplate(user.firstName, pin),
-      );
 
-      return {
-        message: "proceed to verifying your account",
-      };
-    }
-
-    let token;
-
-    if (params.type === "rider") {
-      const rider = await models.Rider.create({
-        accountId: user._id,
-        emailVerificationToken: crypto.randomBytes(64).toString("hex"),
-      })
-      const url = `${config.app.frontendUrl}/riders/auth/verify/${rider.emailVerificationToken}`;
-      const subject = "Rider Registeration";
-  
-      mailMan(
-        user.email,
-        subject,
-        emailVerification(url, user.firstName),
-      );
-
-      { token } await createSession(user._id, params.ip);
-    }
-
-    return {
-      message: "upload required documents",
-      data: _.pick(user.toObject(), ["_id", "createdAt", "updatedAt"]),
-      token
-    };
+    return "proceed to verify email"
   },
 });

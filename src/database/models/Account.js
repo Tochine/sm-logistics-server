@@ -40,12 +40,12 @@ const accountSchema = new mongoose.Schema({
     type: String,
   },
 
-  isVerified: {
+  emailIsVerified: {
     type: Boolean,
     default: false,
   },
 
-  verifiedAt: {
+  emailVerifiedAt: {
     type: Date,
   },
 
@@ -54,9 +54,23 @@ const accountSchema = new mongoose.Schema({
     default: new Date(),
   },
 
+  otp: {
+    type: String,
+  },
+
+  profileImage: {
+    name: { type: String },
+    path: { type: String },
+  },
+
   completionStatus: {
     type: Boolean,
     default: false,
+  },
+
+  loginCount: {
+    type: Number,
+    default: 0,
   },
 
   userType: {

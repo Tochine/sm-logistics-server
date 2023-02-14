@@ -19,7 +19,7 @@ module.exports.profileImage = async (req, res, next) => {
   try {
     const result = await ClientService.accountProfileImage({
       account_id: req.session.account._id,
-      file: req.file,
+      fileName: req.files,
     });
     return res.send({
       status: "success",

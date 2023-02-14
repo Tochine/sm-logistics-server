@@ -170,7 +170,7 @@ module.exports.resetPasswordToken = (url, name) => {
             <h1>Password Reset</h1>
             <p>Hi ${name} </p>
             <p>Please use the link below to reset your password</p><br>
-            <p>Your password reset token ${url}</p>
+            <p>Your password reset token <a href=${url}>${url}</a></p>
 
             <p> If you didnt create an account on <a href="https://sm-logistics.netlify.app">SM Logistics</a> you can delete this email</p>
             <p class="highlight">Having questions? Reach out to any of us using the methods below</p>
@@ -360,7 +360,7 @@ module.exports.otpMailTemplate = (name, otp) => {
         ">
             <h1>OTP verification</h1>
             <p>Hi ${name} </p>
-            <p>Enter this 4 digit code to finish up your registration process</p>
+            <p>Use this 4 digit code to finish up your registration process</p>
             <p><a class="btn action">${otp}</a></p>
             <br><br>
             <p>Thanks for showing interest in <h3> SM Logistics</h3></p>

@@ -79,6 +79,10 @@ const accountSchema = new mongoose.Schema({
     default: "client",
   },
 
+  status: {
+    type: String
+  }
+
 });
 
 accountSchema.plugin(timestamp);

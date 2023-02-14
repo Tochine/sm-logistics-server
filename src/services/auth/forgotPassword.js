@@ -33,7 +33,7 @@ module.exports = wrapServiceAction({
     const url = `${config.app.frontendUrl}/reset-password/${user.passwordResetToken}`;
     const subject = "Password Reset";
 
-    await mailMan(
+    mailMan(
       account.email,
       subject,
       resetPasswordToken(url, account.firstName),

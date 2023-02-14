@@ -30,7 +30,7 @@ const stream = {
   write: (text) => routesLogger.http(text.trim()),
 };
 
-app.use(morgan(config.app.env === "local" ? "dev" : "combined", { stream }));
+app.use(morgan(config.app.env === "development" ? "development" : "combined", { stream }));
 app.use(logVisited);
 
 /* ROUTES */

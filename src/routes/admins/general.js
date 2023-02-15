@@ -38,6 +38,7 @@ router.post("/register", AdminController.register);
 router.get("/items/awaiting-decision", adminAuth, AdminController.getItemsAwaitingApproval);
 router.post("/categories", adminAuth, AdminController.createItemCategory)
 router.get("/categories", adminAuth, AdminController.getItemCategories)
+router.post("/weights", adminAuth, AdminController.createItemWeight)
 
 // router.get("/dashboard", deSerialize, AdminController.getDashboard);
 // router.get("/items", deSerialize, AdminController.getItems);

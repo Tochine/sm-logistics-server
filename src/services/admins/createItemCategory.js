@@ -1,5 +1,4 @@
 const wrapServiceAction = require("../_core/wrapServiceAction");
-const omit = require("lodash/omit");
 const { ServiceError } = require("../../exceptions");
 const models = require("../../database/models");
 const { string } = require("../../validationTypes");

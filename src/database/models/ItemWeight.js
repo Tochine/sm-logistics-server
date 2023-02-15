@@ -4,9 +4,14 @@ const { Schema } = mongoose;
 const timestamp = require("./plugins/timestamp");
 
 const itemWeightSchema = new Schema({
-  value: {
-    type: String,
+  start: {
+    type: Number,
+    unique: true,
   },
+  end: {
+    type: Number,
+    unique: true
+  }
 });
 
 itemWeightSchema.plugin(timestamp);

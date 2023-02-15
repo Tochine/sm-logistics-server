@@ -5,6 +5,7 @@ module.exports = {
   getItemsAwaitingApproval: require("./getItemsAwaitingApproval"),
   createItemCategory: require("./createItemCategory"),
   getItemCategories: require("./getItemCategories"),
+  createItemWeight: require("./createItemWeight"),
   // payment: require("./payment"),
   // dashboard: require("./dashboard"),
   // paymentType: require("./paymentType"),

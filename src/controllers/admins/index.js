@@ -70,3 +70,18 @@ module.exports.getItemCategories = async (req, res, next) => {
     next(error);
   }
 }
+
+module.exports.createItemWeight = async (req, res, next) => {
+  try {
+    const result = await AdminService.createItemWeight({
+      ...req.body
+    });
+
+    return res.send({
+      status: "success",
+      result
+    })
+  } catch (error) {
+    next(error);
+  }
+}

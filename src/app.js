@@ -37,7 +37,7 @@ app.use(logVisited);
 // app.use("/auth", require("./routes/auth"));
 app.use("/api/v1", require("./routes"));
 // app.use("/riders", require("./routes/riders"));
-app.use("/admin", require("./routes/admins"));
+// app.use("/admin", require("./routes/admins"));
 
 /* EXCEPTION HANDLERS */
 app.use(errorHandler);

@@ -3,6 +3,7 @@ const omit = require("lodash/omit");
 const { ServiceError } = require("../../exceptions");
 const models = require("../../database/models");
 const { hashPassword } = require("../../providers/Utilities");
+const { createSession, flags } = require("../../providers/createSession");
 const { any, string, email } = require("../../validationTypes");
 
 module.exports = wrapServiceAction({
@@ -23,9 +24,14 @@ module.exports = wrapServiceAction({
       email: params.email,
       phoneNumber: params.phoneNumber,
       password: await hashPassword(params.password),
-      createdBy: params.createdBy
+      createdBy: params.createdBy ? params.createdBy : null,
     });
 
-    return omit(newAdmin.toObject(), ["password", "__v"]);
+    const { token } = await createSession(newAdmin._id, null, flags.admin);
+
+    return {
+      admin: omit(newAdmin.toObject(), ["password", "__v"]),
+      token
+    }
   }
 });

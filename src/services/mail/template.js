@@ -147,6 +147,9 @@ module.exports.resetPasswordToken = (url, name) => {
         .highlight {
             color: rgb(187, 187, 187) !important;
         }
+        .word-break {
+            word-breaker: break-all;
+        }
     </style>
     <section class="page-wrapper" style="
     width: 100%;
@@ -170,7 +173,7 @@ module.exports.resetPasswordToken = (url, name) => {
             <h1>Password Reset</h1>
             <p>Hi ${name} </p>
             <p>Please use the link below to reset your password</p><br>
-            <p>Your password reset token <a href=${url}>${url}</a></p>
+            <p>Your password reset token <a class="word-break" href=${url}>${url}</a></p>
 
             <p> If you didnt create an account on <a href="https://sm-logistics.netlify.app">SM Logistics</a> you can delete this email</p>
             <p class="highlight">Having questions? Reach out to any of us using the methods below</p>

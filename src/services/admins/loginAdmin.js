@@ -3,7 +3,7 @@ const omit = require("lodash/omit");
 const { ServiceError } = require("../../exceptions");
 const models = require("../../database/models");
 const { comparePassword } = require("../../providers/Utilities");
-const { createSession } = require("../../providers/createSession");
+const { createSession, flags } = require("../../providers/createSession");
 const { string, email } = require("../../validationTypes");
 
 module.exports = wrapServiceAction({
@@ -31,8 +31,7 @@ module.exports = wrapServiceAction({
       { new: true }
     );
 
-   // const token = await generateJWTToken({ id: data._id});
-   const { token } = await createSession(account._id);
+    const { token } = await createSession(data._id, null, flags.admin);
 
     return { 
       account: omit(data.toObject(), ["password", "__v"]),

@@ -60,7 +60,7 @@ module.exports = wrapServiceAction({
 
 
     return {
-      account: _.omit(data.toObject(), ["password", "__v", "createdAt", "updatedAt"]),
+      account: _.omit(data.toObject(), ["password", "__v", "createdAt", "updatedAt", "passwordResetToken"]),
       token
     };
   },

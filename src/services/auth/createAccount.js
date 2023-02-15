@@ -10,7 +10,7 @@ const models = require("../../database/models");
 const { hashPassword, generateRandomNumbers, encrypt } = require("../../providers/Utilities");
 const { mailMan } = require("../mail");
 const { otpMailTemplate } = require("../mail/template");
-const { createSession } = require("../../providers/createSession");
+const { createSession, flags } = require("../../providers/createSession");
 
 module.exports = wrapServiceAction({
   params: {
@@ -63,15 +63,13 @@ module.exports = wrapServiceAction({
 
     const subject = "Account Verification OTP";
 
-    
-
     mailMan(
       user.email,
       subject,
       otpMailTemplate(user.firstName, pin)
     );
 
-    const token = await createSession(user._id, params.ip);
+    const token = await createSession(user._id, params.ip, flags.auth);
 
 
     return "proceed to verify email"

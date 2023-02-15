@@ -5,7 +5,7 @@ module.exports.register = async (req, res, next) => {
   try {
     const result = await AdminService.createAccount({ 
       ...req.body,
-      createdBy: req.session.account._id,
+      // createdBy: req.session.account._id,
      });
 
     return res.send({
@@ -38,6 +38,34 @@ module.exports.getItemsAwaitingApproval = async (req, res, next) => {
       status: "success",
       result
     });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports.createItemCategory = async (req, res, next) => {
+  try {
+    const result = await AdminService.createItemCategory({
+      ...req.body
+    });
+
+    return res.send({
+      status: "success",
+      result
+    })
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports.getItemCategories = async (req, res, next) => {
+  try {
+    const result = await AdminService.getItemCategories();
+
+    return res.send({
+      status: "success",
+      result
+    })
   } catch (error) {
     next(error);
   }

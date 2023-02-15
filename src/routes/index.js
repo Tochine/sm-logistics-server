@@ -16,4 +16,8 @@ router.use("/info", require("./info"));
 
 // router.use('/items', require('./items'));
 
+// Admin endpoint
+
+router.use("/admin", require("./admins"));
+
 module.exports = router;

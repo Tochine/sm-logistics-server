@@ -13,12 +13,21 @@ const riderAccountSchema = new mongoose.Schema({
     default: false,
   },
 
+  deliveryStatus: {
+    type: String,
+    enum: ["free", "busy"],
+    default: "free",
+  },
+
   coordinates: {
     lat: { type: Number },
     long: { type: Number },
   },
 
-  profileImage: { type: String },
+  profileImage: {
+    name: { type: String },
+    path: { type: String },
+  },
 
   emailVerificationToken: { type: String },
 

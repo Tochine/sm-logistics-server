@@ -31,11 +31,13 @@ router.get("/list", async (req, res) => {
   res.send(x);
 });
 
-const { deSerialize } = require("../../middlewares/admin");
+const { adminAuth } = require("../../middlewares/admin");
 
 router.post("/login", AdminController.login);
-
 router.post("/register", AdminController.register);
+router.get("/items/awaiting-decision", adminAuth, AdminController.getItemsAwaitingApproval);
+router.post("/categories", adminAuth, AdminController.createItemCategory)
+router.get("/categories", adminAuth, AdminController.getItemCategories)
 
 // router.get("/dashboard", deSerialize, AdminController.getDashboard);
 // router.get("/items", deSerialize, AdminController.getItems);

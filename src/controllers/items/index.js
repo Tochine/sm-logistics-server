@@ -65,3 +65,29 @@ module.exports.paymentRefNumberConfirmation = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getItemCategories = async (req, res, next) => {
+  try {
+    const result = await ItemService.itemCategory();
+
+    return res.send({
+      status: "success",
+      result
+    });
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports.getItemWeights = async (req, res, next) => {
+  try {
+    const result = await ItemService.itemWeight();
+    
+    return res.send({
+      status: "success",
+      result
+    });
+  } catch (error) {
+    next(error)
+  }
+}

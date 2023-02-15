@@ -65,7 +65,7 @@ const itemsSchema = new mongoose.Schema(
     },
     state: {
       type: String,
-      enum: ["draft", "submited"],
+      enum: ["draft", "submitted"],
       defaultValue: "draft",
     },
     status: {

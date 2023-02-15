@@ -7,11 +7,6 @@ const AuthController = require("../controllers/auth");
 const { getIpAndUserAgent } = require("../middlewares");
 
 router.get("/healthcheck", async (req, res) => {
-  const { host } = req.headers;
-  // console.log(host);
-  const { originalUrl } = req;
-  console.log(host + originalUrl);
-  console.log("*****************************");
   res.send({
     status: "success",
     message: "Healthcheck is wworking",

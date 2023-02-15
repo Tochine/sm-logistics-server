@@ -9,7 +9,8 @@ const { email, string } = require("../../validationTypes");
 const models = require("../../database/models");
 const { hashPassword, generateRandomNumbers, encrypt } = require("../../providers/Utilities");
 const { mailMan } = require("../mail");
-const { emailVerification, otpMailTemplate } = require("../mail/template");
+const { otpMailTemplate } = require("../mail/template");
+const { createSession, flags } = require("../../providers/createSession");
 
 module.exports = wrapServiceAction({
   params: {
@@ -25,6 +26,7 @@ module.exports = wrapServiceAction({
     phoneNumber: { ...string },
     password: { ...string },
     type: { ...string },
+    ip: { ...string, optional: true },
   },
 
   async handler(params) {
@@ -45,7 +47,7 @@ module.exports = wrapServiceAction({
     const accountExist = await models.Account.findOne({ email: params.email });
     if (accountExist) throw new ServiceError("account already exist");
 
-
+    const pin = generateRandomNumbers()
 
     const data = {
       email: params.email,
@@ -54,47 +56,22 @@ module.exports = wrapServiceAction({
       phoneNumber: params.phoneNumber,
       password: await hashPassword(params.password),
       userType: params.type,
+      otp: pin,
     };
 
     const user = await models.Account.create(data);
 
+    const subject = "Account Verification OTP";
 
-    if (params.type === "client") {
-      let pin = generateRandomNumbers()
+    mailMan(
+      user.email,
+      subject,
+      otpMailTemplate(user.firstName, pin)
+    );
 
-      await models.Client.create({
-        accountId: user._id,
-        otp: pin,
-      });
+    const token = await createSession(user._id, params.ip, flags.auth);
 
-      const subject = "Account Verification OTP";
 
-      await mailMan(
-        user.email,
-        subject,
-        otpMailTemplate(user.firstName, pin),
-      );
-
-      return {
-        message: "proceed to verifying your account",
-      };
-    }
-
-    if (params.type === "rider") {
-      const rider = await models.Rider.create({
-        accountId: user._id,
-        emailVerificationToken: crypto.randomBytes(64).toString("hex"),
-      })
-      const url = `${config.app.frontendUrl}/riders/auth/verify/${rider.emailVerificationToken}`;
-      const subject = "Rider Registeration";
-  
-      mailMan(
-        user.email,
-        subject,
-        emailVerification(url, user.firstName),
-      );
-    }
-
-    return _.omit(user.toObject(), ["password", "__v", "createdAt", "updatedAt"]);
+    return "proceed to verify email"
   },
 });

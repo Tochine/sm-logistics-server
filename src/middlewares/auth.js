@@ -34,6 +34,7 @@ module.exports = {
       if (!account || (tokenFlag === "AUTH" && !session)) {
         return next(new AuthenticationError("token is invalid"));
       }
+      
       req.session.account = account.toJSON();
 
       next();

@@ -11,7 +11,7 @@ module.exports = wrapServiceAction({
   },
 
   async handler(params) {
-    const otpExist = await models.Client.findOne({ otp: params.otp });
+    const otpExist = await models.Account.findOne({ otp: params.otp });
     if (!otpExist) {
       throw new ValidationError("otp does not match");
     }

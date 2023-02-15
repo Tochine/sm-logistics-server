@@ -54,28 +54,13 @@ module.exports = wrapServiceAction({
     let count;
     let client;
 
-    // if (user.userType === "client") {
-    //   const x = await models.Client.findOne({ accountId: user._id });
-    //   if (x.loginCount < 4 && x.loginCount !== null ) {
-    //     count = x.loginCount += 1;
-    //   }
-
-    //   client = await models.Client.findOneAndUpdate(
-    //     { _id: x._id },
-    //     { loginCount: count },
-    //     { new: true }
-    //   )
-    // }
-
-    // const session = await models.Session.deleteMany({ accountId: user._id });
-
     const data = Object.assign(user, client)
 
     const { token } = await createSession(account._id, params.ip);
 
 
     return {
-      account: _.omit(data.toObject(), ["password", "__v", "createdAt", "updatedAt"]),
+      account: _.omit(data.toObject(), ["password", "__v", "createdAt", "updatedAt", "passwordResetToken"]),
       token
     };
   },

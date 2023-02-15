@@ -25,8 +25,9 @@ module.exports = wrapServiceAction({
 
     const data = await models.Tranx.findOne({ itemId: item._id });
     data.reference = params.referenceNumber;
-    data.total = item.length;
+    data.total = item.price;
     data.paidAt = new Date();
+    data.status = "pending";
     await data.save();
 
     return {

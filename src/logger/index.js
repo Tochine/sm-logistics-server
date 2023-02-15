@@ -5,7 +5,7 @@ const { AppEnvironmentEnum } = require("../config");
 
 const { TEST, LOCAL } = { ...AppEnvironmentEnum };
 
-const consoleTransportOptions = [TEST, LOCAL].includes(config.app.env)
+const consoleTransportOptions = [TEST, LOCAL, ].includes(config.app.env)
   ? {
     handleExceptions: true,
     format: format.combine(

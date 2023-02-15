@@ -8,6 +8,22 @@ const {
   ChangeAccountPasswordValidator
 } = require("../../validators");
 
+// module.exports.registerRider = async (req, res, next) => {
+//   try {
+//     const result = await AuthService.createAccount({ 
+//       ...req.body,
+//       ip: req.ip,
+//      });
+
+//     return res.send({
+//       status: "success",
+//       result,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// }
+
 class RidersAccountController {
   static getRiderAccount = requestHandler({
     validator: GetRiderAccounValidator,

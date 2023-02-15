@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 module.exports = {
   Account: require("./Account"),
-  Client: require("./Client"),
   Items: require("./Items"),
   Transaction: require("./Transaction"),
   ItemCategory: require("./ItemCategory"),
@@ -9,7 +8,7 @@ module.exports = {
   Payment: require("./Payment"),
   Tranx: require("./Transaction"),
   Rider: require("./Rider"),
-  AdminsAccount: require("./Admins/AdminAccount"),
+  Admin: require("./Admin"),
   Session: require("./Session"),
-  KYC: require("./Riders/Kyc"),
+  KYC: require("./Kyc"),
 };

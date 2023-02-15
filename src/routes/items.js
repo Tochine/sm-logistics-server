@@ -9,6 +9,9 @@ const ItemsController = require("../controllers/items");
 // }= require("../controllers/client");
 const { deSerialize } = require("../middlewares/auth");
 
+router.get("/categories", ItemsController.getItemCategories);
+router.get("/weights", ItemsController.getItemWeights);
+
 router.use(deSerialize);
 
 router.post("/", ItemsController.createItem);
